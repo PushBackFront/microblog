@@ -1,0 +1,10 @@
+{
+  "name": "microblog",
+  "version": "1.0.0",
+  "description": "Um microblog realtime",
+  "main": "app.js",
+  "author": "Caio Ribeiro Pereira",
+  "dependencies": {
+    "socket.io": "^1.3.6"
+  }
+}

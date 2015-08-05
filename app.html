@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Microblog</title>
+    <style>
+      textarea {
+        width: 90%;
+        height: 200px;
+        font-size: 18px;
+      }
+      button {
+        width: 90%;
+        font-size: 30px;
+      }
+      p {
+        text-align: center;
+      }
+      fieldset {
+        width: 90%;
+        margin: 0 auto;
+      }
+      fieldset p {
+        text-align: left; 
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <textarea></textarea>
+      <br>
+      <button>ENVIAR</button>
+    </p>
+    <fieldset>
+      <legend>Timeline</legend>
+      <div></div>
+    </fieldset>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io("http://localhost:3000");
+      var button = document.querySelector("button");
+      var textarea = document.querySelector("textarea");
+      var div = document.querySelector("div");
+      
+      socket.on("receive", function (data) {
+        var p = document.createElement("p");
+        var hr = document.createElement("hr");
+        p.textContent = data.msg;
+        div.appendChild(p);
+        div.appendChild(hr);
+      });
+
+      button.onclick = function() {
+        var msg = textarea.value;
+        socket.emit("send", {msg: msg});
+        textarea.value = "";
+      };
+    </script>
+  </body>
+</html>
